@@ -16,7 +16,7 @@ def load(imdir,f):
     image=io.imread(os.path.join(imdir, f),True)
     return img_as_ubyte(image)
     
-train_size=9
+train_size=10
    
 #collect all the stones in an array
 stones=[]
@@ -44,18 +44,22 @@ for i in range(len(xs)):
 clf=svm.SVC()
 clf.fit(clar,cltype)
 
-#testing predicates 
-log=[]
+#testing predictions
+incorrect=[]
+correct=[]
 for typ in 'abcd':
-    for i in range(train_size,36):
+    for i in range(train_size,37):
         p_img=load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i)
         p_glcm=greycomatrix(p_img, [5], [0], 256, symmetric=True, normed=True)
         p=[greycoprops(p_glcm, 'dissimilarity')[0, 0],greycoprops(p_glcm, 'correlation')[0, 0],greycoprops(p_glcm,'ASM')[0,0]]
         prediction=clf.predict([p])
         if typ!=prediction:
-            log.append((typ,prediction[0],i))
-
-percentage=(((37-train_size)*4-len(log))/((37-train_size)*4))*100
+            incorrect.append((typ,prediction[0],i))
+        else:
+            correct.append((typ,i))
+            
+percentage=(((37-train_size)*4-len(incorrect))/((37-train_size)*4))*100
+# for each type, plot (dissimilarity, correlation,asm)
 fig = plt.figure(figsize=(20, 20))            
 ax = fig.add_subplot(3, 2, 2)
 for i in range(4):
