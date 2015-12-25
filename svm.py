@@ -22,12 +22,12 @@ train_size=10
 stones=[]
 for typ in 'abcd':
     for i in range(0,train_size):
-        stones.append(load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i))
+        stones.append(load(r"\dataset\%s" % typ,'%d.jpg' % i))
         
 #extract texture features using glcm
-xs=[]
-ys=[]
-zs=[]
+xs=[]#array of dissimilarities
+ys=[]#array of correlation
+zs=[]#array of ASM
 for i in range(len(stones)):
     glcm = greycomatrix(stones[i], [5], [0], 256, symmetric=True, normed=True)
     xs.append(greycoprops(glcm, 'dissimilarity')[0, 0])
@@ -49,7 +49,7 @@ incorrect=[]
 correct=[]
 for typ in 'abcd':
     for i in range(train_size,37):
-        p_img=load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i)
+        p_img=load(r"\dataset\%s" % typ,'%d.jpg' % i)
         p_glcm=greycomatrix(p_img, [5], [0], 256, symmetric=True, normed=True)
         p=[greycoprops(p_glcm, 'dissimilarity')[0, 0],greycoprops(p_glcm, 'correlation')[0, 0],greycoprops(p_glcm,'ASM')[0,0]]
         prediction=clf.predict([p])
@@ -73,7 +73,7 @@ for i in range(4):
 ax.set_xlabel('GLCM features')
 ax.set_ylabel('stone types')
 ax.legend()
-fig.suptitle('Grey level co-occurrence matrix features,accurate :%f' % percentage, fontsize=14)
+fig.suptitle('Grey level co-occurrence matrix features,accuracy :%f' % percentage, fontsize=14)
 plt.show()
         
         
