@@ -70,8 +70,8 @@ for typ in 'abcd':
         else:
             tree_correct.append((typ,i))
             
-svm_percentage=(((37-train_size)*4-len(svm_incorrect))/((37-train_size)*4))*100
-tree_percentage=(((37-train_size)*4-len(tree_incorrect))/((37-train_size)*4))*100
+svm_precision=(((37-train_size)*4-len(svm_incorrect))/((37-train_size)*4))*100
+tree_precision=(((37-train_size)*4-len(tree_incorrect))/((37-train_size)*4))*100
 # for each type, plot (dissimilarity, correlation,asm)
 fig = plt.figure(figsize=(20, 20))            
 ax = fig.add_subplot(3, 1, 2)
@@ -86,5 +86,5 @@ for i in range(4):
 ax.set_xlabel('GLCM features')
 ax.set_ylabel('stone types')
 ax.legend()
-fig.suptitle('Grey level co-occurrence matrix features \n accuracy :\n disicion tree:%f \n svm:%f' %(tree_percentage,svm_percentage), fontsize=14)
+fig.suptitle('Grey level co-occurrence matrix features \n accuracy :\n disicion tree:%f \n svm:%f' %(tree_precision,svm_precision), fontsize=14)
 plt.show()
