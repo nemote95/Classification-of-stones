@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Dec 23 12:44:33 2015
-
 @author: Negmo
 """
 from skimage import io
