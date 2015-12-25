@@ -8,6 +8,7 @@ import os
 import matplotlib.pyplot as plt
 from skimage.feature import greycomatrix, greycoprops
 from sklearn import svm
+from sklearn import tree
 
 #load an image from a given directory
 def load(imdir,f):
@@ -40,24 +41,37 @@ for i in range(len(xs)):
         clar.append([xs[i],ys[i],zs[i]])
         cltype.append("abcd"[i//train_size])
 
-clf=svm.SVC()
-clf.fit(clar,cltype)
+svm_clf=svm.SVC()
+svm_clf.fit(clar,cltype)
+
+tree_clf=tree.DecisionTreeClassifier()
+tree_clf.fit(clar,cltype)
 
 #testing predictions
-incorrect=[]
-correct=[]
+svm_incorrect=[]
+svm_correct=[]
+
+tree_incorrect=[]
+tree_correct=[]
 for typ in 'abcd':
     for i in range(train_size,37):
         p_img=load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i)
         p_glcm=greycomatrix(p_img, [5], [0], 256, symmetric=True, normed=True)
         p=[greycoprops(p_glcm, 'dissimilarity')[0, 0],greycoprops(p_glcm, 'correlation')[0, 0],greycoprops(p_glcm,'ASM')[0,0]]
-        prediction=clf.predict([p])
-        if typ!=prediction:
-            incorrect.append((typ,prediction[0],i))
+        svm_prediction=svm_clf.predict([p])
+        tree_prediction=tree_clf.predict([p])
+        if typ!=svm_prediction:
+            svm_incorrect.append((typ,svm_prediction[0],i))
         else:
-            correct.append((typ,i))
+            svm_correct.append((typ,i))
             
-percentage=(((37-train_size)*4-len(incorrect))/((37-train_size)*4))*100
+        if typ!=tree_prediction:
+            tree_incorrect.append((typ,tree_prediction[0],i))
+        else:
+            tree_correct.append((typ,i))
+            
+svm_percentage=(((37-train_size)*4-len(svm_incorrect))/((37-train_size)*4))*100
+tree_percentage=(((37-train_size)*4-len(tree_incorrect))/((37-train_size)*4))*100
 # for each type, plot (dissimilarity, correlation,asm)
 fig = plt.figure(figsize=(20, 20))            
 ax = fig.add_subplot(3, 1, 2)
@@ -72,5 +86,5 @@ for i in range(4):
 ax.set_xlabel('GLCM features')
 ax.set_ylabel('stone types')
 ax.legend()
-fig.suptitle('Grey level co-occurrence matrix features,accurate :%f' % percentage, fontsize=14)
+fig.suptitle('Grey level co-occurrence matrix features \n accuracy :\n disicion tree:%f \n svm:%f' %(tree_percentage,svm_percentage), fontsize=14)
 plt.show()
