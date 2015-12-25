@@ -24,9 +24,9 @@ for typ in 'abcd':
         stones.append(load(r"\dataset\%s" % typ,'%d.jpg' % i))#change the directory to your dataset directory
         
 #extract texture features using glcm
-xs=[]
-ys=[]
-zs=[]
+xs=[]#array of dissimilarities
+ys=[]#array of correlation
+zs=[]#array of ASM
 for i in range(len(stones)):
     glcm = greycomatrix(stones[i], [5], [0], 256, symmetric=True, normed=True)
     xs.append(greycoprops(glcm, 'dissimilarity')[0, 0])
