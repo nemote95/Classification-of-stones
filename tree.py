@@ -63,7 +63,7 @@ for typ in 'abcd':
         if typ!=prediction:
             incorrect.append((typ,prediction[0],i))
         else:
-            correct.append((type,i))
+            correct.append((typ,i))
 
 percentage=(((37-train_size)*4-len(incorrect))/((37-train_size)*4))*100
 # for each type, plot (dissimilarity, correlation,asm)
