@@ -50,7 +50,7 @@ tree_incorrect=[]
 tree_correct=[]
 for typ in 'abcd':
     for i in range(train_size,37):
-        p_img=load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i)
+        p_img=load(r"\dataset\%s" % typ,'%d.jpg' % i)#change this directory
         p_glcm=greycomatrix(p_img, [5], [0], 256, symmetric=True, normed=True)
         p=[greycoprops(p_glcm, 'ASM')[0, 0]]
         svm_prediction=svm_clf.predict([p])
