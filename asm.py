@@ -3,13 +3,11 @@
 
 @author: Negmo
 """
-from skimage import io
-from skimage import img_as_ubyte
+from skimage import io,img_as_ubyte
 import os
 import matplotlib.pyplot as plt
 from skimage.feature import greycomatrix, greycoprops
-from sklearn import svm
-from sklearn import tree
+from sklearn import svm,tree
 
 #load an image from a given directory
 def load(imdir,f):
@@ -23,7 +21,7 @@ train_size=10
 stones=[]
 for typ in 'abcd':
     for i in range(0,train_size):
-        stones.append(load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i))
+        stones.append(load(r"\dataset\%s" % typ,'%d.jpg' % i))#change this directory
         
 #extract texture features using glcm
 zs=[]#array of ASM
