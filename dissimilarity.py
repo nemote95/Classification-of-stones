@@ -2,13 +2,11 @@
 """
 @author: Negmo
 """
-from skimage import io
-from skimage import img_as_ubyte
+from skimage import io,img_as_ubyte
 import os
 import matplotlib.pyplot as plt
 from skimage.feature import greycomatrix, greycoprops
-from sklearn import svm
-from sklearn import tree
+from sklearn import svm,tree
 
 #load an image from a given directory
 def load(imdir,f):
@@ -22,7 +20,7 @@ train_size=10
 stones=[]
 for typ in 'abcd':
     for i in range(0,train_size):
-        stones.append(load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i))
+        stones.append(load(r"\dataset\%s" % typ,'%d.jpg' % i))#change this directory 
         
 #extract texture features using glcm
 xs=[]#array of dissimilarities
@@ -55,7 +53,7 @@ tree_incorrect=[]
 tree_correct=[]
 for typ in 'abcd':
     for i in range(train_size,37):
-        p_img=load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i)
+        p_img=load(r"\dataset\%s" % typ,'%d.jpg' % i)#change this directory 
         p_glcm=greycomatrix(p_img, [5], [0], 256, symmetric=True, normed=True)
         p=[greycoprops(p_glcm, 'dissimilarity')[0, 0],greycoprops(p_glcm, 'correlation')[0, 0],greycoprops(p_glcm,'ASM')[0,0]]
         svm_prediction=svm_clf.predict([p])
