@@ -1,20 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jan 21 19:17:46 2016
 
-@author: Negmo
-"""
-
-"""
-===============================================
-Local Binary Pattern for texture classification
-===============================================
-
-"""
 import numpy as np
 from skimage.feature import local_binary_pattern
 from skimage import io
-from skimage import img_as_ubyte
 from skimage.filters import gabor_filter
 from sklearn import svm,tree
 import os 
@@ -30,8 +17,8 @@ n_points = 10 * radius
 def load(imdir,f):
     io.use_plugin('pil')
     image=io.imread(os.path.join(imdir, f),True)
-    real,img=gabor_filter(image,frequency=3.5)
-    return img_as_ubyte(image)
+    real,img=gabor_filter(image,frequency=13.5)
+    return real
     
 train_size=10
    
@@ -67,4 +54,4 @@ for typ in 'abcd':
         if typ==rec_tree[0]:
             correct_tree+=1
 print (correct_svm,correct_tree)
-            
+#
