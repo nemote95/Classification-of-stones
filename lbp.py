@@ -25,7 +25,7 @@ train_size=10
 def load(imdir,f):
     io.use_plugin('pil')
     image=io.imread(os.path.join(imdir, f),True)
-    real,img=gabor_filter(image,frequency=0.1)#90 95!
+    real,img=gabor_filter(image,frequency=7.5)
     return image
     
    
