@@ -20,7 +20,7 @@ train_size=10
 stones=[]
 for typ in 'abcd':
     for i in range(0,train_size):
-        stones.append(load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i))
+        stones.append(load(r".\dataset\%s" % typ,'%d.jpg' % i))
         
 #extract texture features using glcm
 xs=[]#array of dissimilarities
@@ -56,7 +56,7 @@ tree_incorrect=[]
 tree_correct=[]
 for typ in 'abcd':
     for i in range(train_size,37):
-        p_img=load(r"C:\Users\Negmo\.spyder2-py3\dataset\%s" % typ,'%d.jpg' % i)
+        p_img=load(r".\dataset\%s" % typ,'%d.jpg' % i)
         p_glcm=greycomatrix(p_img, [5], [0], 256, symmetric=True, normed=True)
         p=[greycoprops(p_glcm, 'dissimilarity')[0, 0],greycoprops(p_glcm, 'correlation')[0, 0],greycoprops(p_glcm,'ASM')[0,0],greycoprops(p_glcm,'homogeneity')[0,0]]
         svm_prediction=svm_clf.predict([p])
