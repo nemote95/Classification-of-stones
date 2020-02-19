@@ -1,5 +1,5 @@
 # Classification-of-stones
-Stone type recognition using texture features
+This project aims at identifying different types of stones using texture features
 
 ## 1.DATASET :
 The used data set can be downloaded from here : http://bayanbox.ir/id/3168748744619895304?download
