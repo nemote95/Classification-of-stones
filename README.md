@@ -1,4 +1,4 @@
-# Classification-of-stones-
+# Classification-of-stones
 Stone type recognition using texture features
 
 ## 1.DATASET :
